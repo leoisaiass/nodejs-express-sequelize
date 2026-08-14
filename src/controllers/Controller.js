@@ -8,7 +8,7 @@ class Controller {
       const listaDeRegistros = await this.entidadeService.pegaTodosRegistros();
       return res.status(200).json(listaDeRegistros);
     } catch (error) {
-      res.status(500).send({ message: "Erro ao buscar todos os registros" });
+      return res.status(500).json({ erro: error.message });
     }
   }
 
@@ -19,8 +19,8 @@ class Controller {
         Number(id),
       );
       return res.status(200).json(umRegistro);
-    } catch (erro) {
-      // erro
+    } catch (error) {
+      return res.status(500).json({ erro: error.message });
     }
   }
 
@@ -30,8 +30,8 @@ class Controller {
       const novoRegistroCriado =
         await this.entidadeService.criaRegistro(dadosParaCriacao);
       return res.status(200).json(novoRegistroCriado);
-    } catch (erro) {
-      // erro
+    } catch (error) {
+      return res.status(500).json({ erro: error.message });
     }
   }
 
@@ -52,7 +52,7 @@ class Controller {
         .status(200)
         .json({ mensagem: `registro ${id} foi atualizado` });
     } catch (error) {
-      // erro
+      return res.status(500).json({ erro: error.message });
     }
   }
 
@@ -62,7 +62,7 @@ class Controller {
       await this.entidadeService.excluiRegistro(Number(id));
       return res.status(200).json({ mensagem: `id ${id} deletado` });
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json({ erro: error.message });
     }
   }
 }

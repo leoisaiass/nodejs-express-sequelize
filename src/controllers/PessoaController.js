@@ -16,8 +16,17 @@ class PessoaController extends Controller {
         Number(estudanteId),
       );
       return res.status(200).json(listaMatriculas);
-    } catch (erro) {
-      // erro
+    } catch (error) {
+      return res.status(500).json({ erro: error.message });
+    }
+  }
+
+  async pegaTodasAsPessoas(req, res) {
+    try {
+      const listaTodasAsPessoas = await pessoaServices.pegaPessoasEscopoTodos();
+      return res.status(200).json(listaTodasAsPessoas);
+    } catch (error) {
+      return res.status(500).json({ erro: error.message });
     }
   }
 }
